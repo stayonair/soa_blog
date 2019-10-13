@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div
-      v-for="(content, index) in Obj.data.contents"
+      v-for="(content, index) in contents.data.contents"
       :key="index"
     >
       <div
@@ -19,20 +19,12 @@
 </template>
 
 <script>
-const axios = require('axios')
+import axios from '~/plugins/axios'
 
 export default {
-  async asyncData({ app }) {
-    const httpClient = axios.create({
-      baseURL: process.env.baseUrl,
-      headers: {
-        'X-API-KEY': process.env.API_KEY
-      }
-    })
-    const [ Obj ] = await Promise.all([
-      httpClient.get('/blog')
-    ])
-    return { Obj }
+  async asyncData() {
+    const contents = await axios.get('/blog').then(res => res)
+    return { contents }
   }
 }
 </script>
