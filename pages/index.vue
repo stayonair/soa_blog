@@ -1,39 +1,38 @@
 <template>
   <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        soa_blog
-      </h1>
-      <h2 class="subtitle">
-        My majestic Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+    <div
+      v-for="(content, index) in Obj.data.contents"
+      :key="index"
+    >
+      <div
+      >
+        <h1 class="title">
+          {{ content.title }}
+        </h1>
+        <p v-html="content.body"></p>
+        <!-- <img :src="content.thumbnailImage.url" alt=""> -->
       </div>
+    </div>
+    <div>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
+const axios = require('axios')
 
 export default {
-  components: {
-    Logo
+  async asyncData({ app }) {
+    const httpClient = axios.create({
+      baseURL: process.env.baseUrl,
+      headers: {
+        'X-API-KEY': process.env.API_KEY
+      }
+    })
+    const [ Obj ] = await Promise.all([
+      httpClient.get('/blog')
+    ])
+    return { Obj }
   }
 }
 </script>

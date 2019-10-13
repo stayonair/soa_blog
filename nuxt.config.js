@@ -1,5 +1,5 @@
 require('dotenv').config()
-const { API_KEY } = process.env;
+const { API_KEY, baseUrl } = process.env;
 
 export default {
   mode: 'spa',
@@ -31,7 +31,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    '@/plugins/element-ui'
+    '@/plugins/element-ui',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -44,6 +44,7 @@ export default {
   ** Nuxt.js modules
   */
   modules: [
+    '@nuxtjs/axios'
   ],
   /*
   ** Build configuration
@@ -57,6 +58,7 @@ export default {
     }
   },
   env: {
-    API_KEY
+    API_KEY,
+    baseUrl
   }
 }
