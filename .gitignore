@@ -1,0 +1,14 @@
+node_modules/
+.nuxt/
+dist/
+
+.env
+.DS_Store
+nohup.out
+
+yarn-error.log
+
+.vscode/*
+!.vscode/setting.json
+
+jsconfig.json
